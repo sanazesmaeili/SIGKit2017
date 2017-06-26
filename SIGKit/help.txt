@@ -1,0 +1,5 @@
+For running the SIGKit package, Please open and run the "RunSIGKit.m" file.
+You need to store your data first. 
+If you are going to store and work with Seicmics data, please store your data in "Seismics\Data" subdirectory.
+If you are going to store and work with GPR data, please store your data in "GPR\Data" subdirectory.
+If you are going to store and work with Magnetics data, please store your data in "Magnetics\Data" subdirectory.
