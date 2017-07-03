@@ -43,6 +43,14 @@ function picktimes(theSeisObj)
 
      if ishandle(1) && strcmp(get(1, 'type'), 'figure')
          figure(1);
+         title({['File #', num2str(theSeisObj.FileNumber),'; ' ...
+                'Source Location =', num2str(theSeisObj.ShotXProf)]; ...
+                 ['\color{red}Once done with picking press Enter'];['']}, 'FontWeight','bold');
+%          uicontrol('Style', 'text',...
+%        'String', 'something',... %replace something with the text you want
+%        'Units','normalized',...
+%        'Position', [0.9 0.2 0.1 0.1]); 
+   
        uiwait(msgbox(['Pick ALL first breaks now. Make a selection on every trace' ...
             ,'; use the left mouse button for "good" picks and the right' ...
             ' mouse button if you are unsure. Press enter when done picking on all traces']))
@@ -54,7 +62,11 @@ function picktimes(theSeisObj)
         F = F(I);
         button = button(I);
      else 
-        plot(theSeisObj,'clipped')
+        plot(theSeisObj,'clipped','','PickData')
+%         uicontrol('Style', 'text',...
+%        'String', 'something',... %replace something with the text you want
+%        'Units','normalized',...
+%        'Position', [0.9 0.2 0.1 0.1]); 
         uiwait(msgbox(['Pick ALL first breaks now. Make a selection on every trace' ...
             ,'; use the left mouse button for "good" picks and the right' ...
             ' mouse button if you are unsure. Press enter when done picking on all traces']))
@@ -92,7 +104,7 @@ function picktimes(theSeisObj)
 
     %create a plot of the individual traces for reselecting
     %first motions
-    uiwait(msgbox('Please repick first breaks'))
+    uiwait(msgbox('Please check your picks on individual traces. You have access to modify them if needed. '))
     scrsz = get(0,'ScreenSize');
     t = theSeisObj.RecTime;
     traces = theSeisObj.W;
@@ -106,7 +118,9 @@ function picktimes(theSeisObj)
     T =zeros(length(theSeisObj.Channels),1);
     button = zeros(length(theSeisObj.Channels),1);
     
-    for index=1:numel(theSeisObj.Channels)
+%     for index=1:numel(theSeisObj.Channels)
+    index = 1;
+    while index <= numel(theSeisObj.Channels)
         f = figure('Position',[1 1 scrsz(3)*0.9 scrsz(4)*0.9], 'Visible','off');
         %                 plot(t, TRnorm(:,index), 'b');
         ax = axes('Units','pixels');
@@ -122,34 +136,47 @@ function picktimes(theSeisObj)
             plot([F2(index) F2(index)],[1 -1], 'r');
 %             plot([F(index) F(index)],[1 -1], 'r');
             title(['Shot at ',num2str(theSeisObj.ShotXProf),...
-                ' m and geophone at ',num2str(theSeisObj.RecXProf(index)),' m'])
+                ' m and geophone number ',num2str(index), ' at ',...
+                num2str(theSeisObj.RecXProf(index)),' m'])
             xlim([0 200])
             xlabel('Time (ms)')
             ylabel('Normalized Trace Amplitude')
             legend('Normalized Trace','Original Pick')
-            PicksUI(Tmin,Tmax,ax);
-             f.Visible ='on';
+            
+            % if trace is already picked we will see "change" button if not "add" button
+            if F2(index) == 300
+                btn2 = 'Add Pick';
+            else
+                btn2 = 'Change Pick';
+            end
              
+            PicksUI(Tmin,Tmax,ax,btn2);
+             f.Visible ='on';
+             f.Children(3).Visible = 'off'; %Go back to Previous Trace
              %activate the keep pick or change pick button
              waitfor(f,'Name');
 %             
             if strcmp(f.Name,'1');
                 T(index) = F2(index);
                 button(index) = 1;
+            elseif strcmp(f.Name,'3');
+                button(index) =3;
+                T(index) = F2(index);
             else
-            [T(index),~,button(index)]=ginput(1);
+                [T(index),~,button(index)]=ginput(1);
             end
             plot([T(index) T(index)],[1 -1], 'c', 'linewidth',2)
             M(index) = getframe(gcf);
             close
             clear f;
         else
+            
             subplot(2,1,1)
             plot(t, (-1*Traces(:,index-1))/max(Traces(:,index-1)), 'k');
             hold on;
             plot([F2(index-1) F2(index-1)],[1 -1], 'r');
 %             plot([F(index-1) F(index-1)],[1 -1], 'r');
-            title(['Previous Trace; Geophone at ', ...
+            title(['Previous Trace; Geophone number ',num2str(index - 1), ' at ', ...
                 num2str(theSeisObj.RecXProf(index-1)),' m'])
             xlim([0 200])
             xlabel('Time (ms)')
@@ -163,30 +190,43 @@ function picktimes(theSeisObj)
             plot([F2(index) F2(index)],[1 -1], 'r');
 %             plot([F(index) F(index)],[1 -1], 'r');
             title(['Shot at ',num2str(theSeisObj.ShotXProf),...
-                ' m and geophone at ',num2str(theSeisObj.RecXProf(index)),' m'])
+                ' m and geophone number ',num2str(index),...
+                ' at ',num2str(theSeisObj.RecXProf(index)),' m'])
             xlim([0 200])
             xlabel('Time (ms)')
             ylabel('Normalized Trace Amplitude')
             
-            PicksUI(Tmin,Tmax,h);
-            f.Visible = 'on';
+            % if trace is already picked we will see "change" button if not "add" button
+            if F2(index) == 300
+                btn2 = 'Add Pick';
+            else
+                btn2 = 'Change Pick';
+            end
             
+            PicksUI(Tmin,Tmax,h,btn2);
+            f.Visible = 'on';
+            f.Children(3).Visible = 'on'; %Go back to Previous Trace
             waitfor(f, 'Name');
             if strcmp(f.Name,'1');
                 T(index) = F2(index);
                 button(index) = 1;
+            elseif strcmp(f.Name,'4');
+                button(index) =4;
+                index = index-2;
+                T(index+1) = F2(index+1);
             elseif strcmp(f.Name,'3');
                 button(index) =3;
                 T(index) = F2(index);
             else
                 [T(index),~,button(index)]=ginput(1);
             end
-            plot([T(index) T(index)],[1 -1], 'c', 'linewidth',2)
-            legend('Normalized Trace','Original Pick','New Pick')
-            M(index) = getframe(gcf);
+%             plot([T(index) T(index)],[1 -1], 'c', 'linewidth',2)
+%             legend('Normalized Trace','Original Pick','New Pick')
+%             M(index) = getframe(gcf);
             close
             clear f;
         end
+        index = index+1;
     end
 
     %show picks
@@ -219,7 +259,7 @@ function picktimes(theSeisObj)
            figure(1)
            plot(RecXProf, PickTime, 'r+')
         else
-            plot(theSeisObj,'clipped');
+            plot(theSeisObj,'clipped','','PickData');
             hold on
             plot(RecXProf, PickTime, 'r+')
         end
@@ -238,8 +278,8 @@ function picktimes(theSeisObj)
     
     waitfor(g,'Name')
     if strcmp(g.Name,num2str(1));
-%         close
-%          clear g;
+%         close (g);
+%         clear g;
     else
         [Y,H] = ginput;
         Y = MatchPicks(Y,RecXProf);
@@ -248,7 +288,7 @@ function picktimes(theSeisObj)
         [new_picks,IA] = setdiff(RecXProf,Y);
         RecXProf = new_picks;
         PickTime =PickTime(IA);
-                
+              
         cla(g)
         plot(RecXProf,PickTime,'*g');
         xlabel('Geophone Position (m)');
@@ -267,7 +307,7 @@ function picktimes(theSeisObj)
             save([Savepath fs ,filename],'RecXProf','PickTime','ShotXProf');
         end
         
-     close(g)   
+      close(g)   
        
 
 end

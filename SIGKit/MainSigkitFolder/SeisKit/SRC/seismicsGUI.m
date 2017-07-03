@@ -83,7 +83,7 @@ fh = findall(0,'Type','Figure');
             close(fh(i))
         end
     end
-    
+set(handles.txtWait,'String','Reading Data, Please wait ... ')    
 set(handles.txtWait,'Visible','on');
 [filenameInput,filepathInput]=uigetfile({'*.dat'},'MultiSelect','on',...
   'Select Input File');
@@ -102,7 +102,7 @@ if char(filenameInput) ~= 0
 %      objFilename = SeisObj(filenameInput);
 
      handles.objFilename = objFilename;
-     plot(objFilename,'clipped');
+     plot(objFilename,'clipped','','ReadData');
      set(handles.txtWait,'Visible','off');
      set(handles.pushbnReadData,'Enable','off');
      set(handles.pushbnPickTime,'Enable','on');
@@ -186,6 +186,7 @@ end
 objFinal = handles.objFilename; 
 
 if (ShotCaseAnswer == 2) || (RecCaseAnswer == 2)
+    set(handles.txtWait,'String','Reading Data, Please wait ... ');  
     set(handles.txtWait,'Visible','on');
     fh = findall(0,'Type','Figure');
     
@@ -195,7 +196,7 @@ if (ShotCaseAnswer == 2) || (RecCaseAnswer == 2)
         end
     end
 
-    plot(objFinal,'simple');
+    plot(objFinal,'simple','','ReadData');
     if length(handles.objFilename.FileNumber) ==2
         filenumber = strcat(num2str(handles.objFilename.FileNumber(1)),'_',num2str(handles.objFilename.FileNumber(2)));
     elseif length(handles.objFilename.FileNumber) ==1
@@ -229,7 +230,7 @@ CreateStruct.WindowStyle = 'modal';
 %              ,'If you do not the program will close but NOT save them automatically!'};
 % uiwait(msgbox(msgString,'Warning','error',CreateStruct));
 msgString = {'Thanks for verifying your data' ...
-             ,'Please select the "Pick First Arrival" button on the SeismicGUI'...
+             ,'Please select the "Pick first arrival time" button on the SeismicGUI'...
              ,'to proceed to the next step!'};
 uiwait(msgbox(msgString,'Warning','error',CreateStruct));
 
@@ -267,6 +268,7 @@ end
 % --- Executes on button press in pushbnReverse.
 function pushbnReverse_Callback(hObject, eventdata, handles)
 %%Read data for reverse shot-when radio button dipping iterface is selected
+set(handles.txtWait,'String','Reading Data, Please wait ... ');
 set(handles.txtWait,'Visible','on');
 [filenameInput,filepathInput]=uigetfile({'*.dat'},'MultiSelect','on',...
   'Select Input File');
@@ -291,7 +293,7 @@ fh = findall(0,'Type','Figure');
     end
 
      handles.objFilenameRvs = objFilenameRvs;
-     plot(objFilenameRvs,'clipped');
+     plot(objFilenameRvs,'clipped','','ReadData');
      set(handles.txtWait,'Visible','off');
      set(handles.pushbnForward,'Enable','off');
      set(handles.pushbnReverse,'Enable','off');
@@ -377,6 +379,7 @@ end
 objFinal = handles.objFilenameRvs; 
 
 if (ShotCaseAnswer == 2) || (RecCaseAnswer == 2)
+    set(handles.txtWait,'String','Reading Data, Please wait ... ');
     set(handles.txtWait,'Visible','on');
     fh = findall(0,'Type','Figure');
     
@@ -386,7 +389,7 @@ if (ShotCaseAnswer == 2) || (RecCaseAnswer == 2)
         end
     end
 
-    plot(objFinal,'simple');
+    plot(objFinal,'simple','','ReadData');
     if length(handles.objFilenameRvs.FileNumber) ==2
         filenumber = strcat(num2str(handles.objFilenameRvs.FileNumber(1)),'_',num2str(handles.objFilenameRvs.FileNumber(2)));
     elseif length(handles.objFilenameRvs.FileNumber) ==1
@@ -420,7 +423,7 @@ CreateStruct.WindowStyle = 'modal';
 %              ,'If you do not the program will close but NOT save them automatically!'};
 % uiwait(msgbox(msgString,'Warning','error',CreateStruct));
 msgString = {'Thanks for verifying your data' ...
-             ,'Please select the "Pick First Arrival" button on the SeismicGUI'...
+             ,'Please select the "Pick first arrival time" button on the SeismicGUI'...
              ,'to proceed to the next step!'};
 uiwait(msgbox(msgString,'Warning','error',CreateStruct));
 
@@ -470,7 +473,7 @@ end
 % --- Executes on button press in pushbnForward.
 function pushbnForward_Callback(hObject, eventdata, handles)
 %%Read data for forward shot - when dipping interface radio button is selected
-
+set(handles.txtWait,'String','Reading Data, Please wait ... ');
 set(handles.txtWait,'Visible','on');
 [filenameInput,filepathInput]=uigetfile({'*.dat'},'MultiSelect','on',...
   'Select Input File');
@@ -493,7 +496,7 @@ for i=1:length(fh)
     end
 end
      handles.objFilenameFwd = objFilenameFwd;
-     plot(objFilenameFwd,'clipped');
+     plot(objFilenameFwd,'clipped','','ReadData');
      set(handles.txtWait,'Visible','off');
      set(handles.pushbnForward,'Enable','off');
      set(handles.pushbnReverse,'Enable','off');
@@ -579,6 +582,7 @@ end
 objFinal = handles.objFilenameFwd; 
 
 if (ShotCaseAnswer == 2) || (RecCaseAnswer == 2)
+    set(handles.txtWait,'String','Reading Data, Please Wait ... ');
     set(handles.txtWait,'Visible','on');
     fh = findall(0,'Type','Figure');
     
@@ -588,7 +592,7 @@ if (ShotCaseAnswer == 2) || (RecCaseAnswer == 2)
         end
     end
 
-    plot(objFinal,'simple');
+    plot(objFinal,'simple','','ReadData');
     if length(handles.objFilenameFwd.FileNumber) ==2
         filenumber = strcat(handles.objFilenameFwd.FileNumber(1),'_',num2str(handles.objFilenameFwd.FileNumber(2)));
     elseif length(handles.objFilenameFwd.FileNumber) ==1
@@ -622,7 +626,7 @@ CreateStruct.WindowStyle = 'modal';
 %              ,'If you do not the program will close but NOT save them automatically!'};
 % uiwait(msgbox(msgString,'Warning','error',CreateStruct));
 msgString = {'Thanks for verifying your data' ...
-             ,'Please select the "Pick First Arrival" button on the SeismicGUI'...
+             ,'Please select the "Pick first arrival time" button on the SeismicGUI'...
              ,'to proceed to the next step!'};
 uiwait(msgbox(msgString,'Warning','error',CreateStruct));
 

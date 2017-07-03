@@ -5,17 +5,21 @@ function PicksUI(varargin)
 Tmin =varargin{1};
 Tmax = varargin{2};
 ax = varargin{3};
+btn2 = varargin{4};
 
 %create the pick activation buttons - btn2 will allow the user to keep the
 %original pick while btn allows the user to change his/her pick
 btn1 = uicontrol('Style', 'pushbutton', 'String', 'Keep Pick', 'Position',...
-    [175 288 75 20], 'Callback', 'btn_gcbf = gcbf;  btn_gcbf.Name = num2str(1);');
+    [175 265 75 20], 'Callback', 'btn_gcbf = gcbf;  btn_gcbf.Name = num2str(1);');
 
-btn2 = uicontrol('Style', 'pushbutton', 'String', 'Change Pick', 'Position',...
-    [275 288 75 20], 'Callback', 'btn_gcbf = gcbf;  btn_gcbf.Name = num2str(2);');
+btn2 = uicontrol('Style', 'pushbutton', 'String', btn2 , 'Position',...
+    [275 265 75 20], 'Callback', 'btn_gcbf = gcbf;  btn_gcbf.Name = num2str(2);');
 
 btn3 = uicontrol('Style', 'pushbutton', 'String', 'Skip Trace', 'Position',...
-    [375 288 75 20], 'Callback', 'btn_gcbf = gcbf;  btn_gcbf.Name = num2str(3);');
+    [375 265 75 20], 'Callback', 'btn_gcbf = gcbf;  btn_gcbf.Name = num2str(3);');
+
+btn4 = uicontrol('Style', 'pushbutton', 'String', 'Go Back to Previous Trace', 'Position',...
+    [475 265 135 20], 'Callback', 'btn_gcbf = gcbf;  btn_gcbf.Name = num2str(4);');
 
 % Create slider to adjust gain
 sld = uicontrol('Style', 'slider',...
