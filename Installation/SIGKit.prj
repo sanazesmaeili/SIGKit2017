@@ -1,0 +1,104 @@
+<deployment-project plugin="plugin.ezdeploy" plugin-version="1.0">
+  <configuration build-checksum="4072009232" file="C:\Users\seyed\Desktop\SIGKit2017\SIGKit\SIGKit.prj" location="C:\Users\seyed\Desktop\SIGKit2017\SIGKit" name="SIGKit" preferred-package-location="C:\Users\seyed\Desktop\SIGKit2017\SIGKit\SIGKit\for_redistribution" preferred-package-type="package.type.exe" target="target.ezdeploy.standalone" target-name="Application Compiler">
+    <param.appname>SIGKit</param.appname>
+    <param.icon>${PROJECT_ROOT}\SIGKit_resources\icon.ico</param.icon>
+    <param.icons>
+      <file>${PROJECT_ROOT}\SIGKit_resources\icon_48.png</file>
+      <file>${PROJECT_ROOT}\SIGKit_resources\icon_32.png</file>
+      <file>${PROJECT_ROOT}\SIGKit_resources\icon_24.png</file>
+      <file>${PROJECT_ROOT}\SIGKit_resources\icon_16.png</file>
+    </param.icons>
+    <param.version>1.2</param.version>
+    <param.authnamewatermark>USF &amp; UofT</param.authnamewatermark>
+    <param.email>skruse@usf.edu esmaeili@mail.usf.edu</param.email>
+    <param.company>USF &amp; UofT &amp; Mathworks</param.company>
+    <param.summary />
+    <param.description />
+    <param.screenshot>F:\SIGKit2017\3.JPG</param.screenshot>
+    <param.guid />
+    <param.installpath.string>\USF &amp; UofT &amp; Mathworks\SIGKit\</param.installpath.string>
+    <param.installpath.combo>option.installpath.programfiles</param.installpath.combo>
+    <param.logo />
+    <param.install.notes />
+    <param.target.install.notes />
+    <param.intermediate>${PROJECT_ROOT}\SIGKit\for_testing</param.intermediate>
+    <param.files.only>${PROJECT_ROOT}\SIGKit\for_redistribution_files_only</param.files.only>
+    <param.output>${PROJECT_ROOT}\SIGKit\for_redistribution</param.output>
+    <param.logdir>${PROJECT_ROOT}\SIGKit</param.logdir>
+    <param.enable.clean.build>false</param.enable.clean.build>
+    <param.user.defined.mcr.options />
+    <param.target.type>subtarget.standalone</param.target.type>
+    <param.support.packages />
+    <param.web.mcr>false</param.web.mcr>
+    <param.package.mcr>true</param.package.mcr>
+    <param.no.mcr>false</param.no.mcr>
+    <param.web.mcr.name>MyAppInstaller_web</param.web.mcr.name>
+    <param.package.mcr.name>SIGKit_v1.2</param.package.mcr.name>
+    <param.no.mcr.name>MyAppInstaller_app</param.no.mcr.name>
+    <param.windows.command.prompt>true</param.windows.command.prompt>
+    <param.create.log>false</param.create.log>
+    <param.log.file />
+    <unset>
+      <param.summary />
+      <param.description />
+      <param.guid />
+      <param.installpath.string />
+      <param.installpath.combo />
+      <param.logo />
+      <param.target.install.notes />
+      <param.intermediate />
+      <param.files.only />
+      <param.output />
+      <param.logdir />
+      <param.enable.clean.build />
+      <param.user.defined.mcr.options />
+      <param.target.type />
+      <param.support.packages />
+      <param.no.mcr />
+      <param.web.mcr.name />
+      <param.no.mcr.name />
+      <param.windows.command.prompt />
+      <param.create.log />
+      <param.log.file />
+    </unset>
+    <fileset.main>
+      <file>${PROJECT_ROOT}\RunSIGKit.m</file>
+    </fileset.main>
+    <fileset.resources>
+      <file>${PROJECT_ROOT}\GPR</file>
+      <file>${PROJECT_ROOT}\MainSigkitFolder</file>
+      <file>${PROJECT_ROOT}\Seismics</file>
+      <file>${PROJECT_ROOT}\Seismics\SeisKit_how_to.pdf</file>
+    </fileset.resources>
+    <fileset.package>
+      <file>${PROJECT_ROOT}\GPR</file>
+      <file>${PROJECT_ROOT}\Seismics</file>
+    </fileset.package>
+    <fileset.depfun />
+    <build-deliverables>
+      <file location="${PROJECT_ROOT}\SIGKit\for_testing" name="readme.txt" optional="true">C:\Users\seyed\Desktop\SIGKit2017\SIGKit\SIGKit\for_testing\readme.txt</file>
+      <file location="${PROJECT_ROOT}\SIGKit\for_testing" name="splash.png" optional="false">C:\Users\seyed\Desktop\SIGKit2017\SIGKit\SIGKit\for_testing\splash.png</file>
+      <file location="${PROJECT_ROOT}\SIGKit\for_testing" name="SIGKit.exe" optional="false">C:\Users\seyed\Desktop\SIGKit2017\SIGKit\SIGKit\for_testing\SIGKit.exe</file>
+    </build-deliverables>
+    <workflow />
+    <matlab>
+      <root>C:\Program Files\MATLAB\R2017a</root>
+      <toolboxes />
+    </matlab>
+    <platform>
+      <unix>false</unix>
+      <mac>false</mac>
+      <windows>true</windows>
+      <win2k>false</win2k>
+      <winxp>false</winxp>
+      <vista>false</vista>
+      <linux>false</linux>
+      <solaris>false</solaris>
+      <osver>6.1</osver>
+      <os32>false</os32>
+      <os64>true</os64>
+      <arch>win64</arch>
+      <matlab>true</matlab>
+    </platform>
+  </configuration>
+</deployment-project>
