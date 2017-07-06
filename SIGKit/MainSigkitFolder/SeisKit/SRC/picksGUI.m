@@ -116,13 +116,26 @@ drawnow
         obj = seismicsGUIdata.objFilenameRvs;
     end
     try
-        obj.picktimes;
+        [theSeisObj,PickTime,RecXProf] = obj.picktimes;
+        %if user wants to delete more unwanted picks
+        options.Interpreter = 'tex';
+        % Include the desired Default answer
+        options.Default = 'No';
+        % Use the TeX interpreter in the question
+        qstring = 'Keep deleting picks?';
+        choice = questdlg(qstring,' ' ,'Yes','No',options);
+        while strcmp(choice,'Yes') ==1
+            [theSeisObj,PickTime,RecXProf] = DeletePicksUI(theSeisObj,PickTime,RecXProf);
+            choice = questdlg(qstring,' ' ,'Yes','No',options);
+        end
+
     catch
-       set(handles.txtWait,'Visible','off');
+        set(handles.txtWait,'Visible','off');
         uiwait(msgbox('Error in picking file'));   
         return
     end
  end
+ close(findobj('type','figure','Tag','g'))
  set(handles.txtWait,'Visible','off');
  close picksGUI
  msgString = {'The picking process is done successfully! ' ...
